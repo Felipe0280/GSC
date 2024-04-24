@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class mainGSC {
@@ -12,7 +13,7 @@ public class mainGSC {
 			op = Integer.valueOf(opcao);
 			
 			while((op<0)||(op>5)) {
-				System.out.println("Opção digitada nao encontrada!");
+				System.out.println("Opção digitada não encontrada!");
 				System.out.println("Digite novamente:");
 				opcao = leitura.nextLine();
 				op = Integer.valueOf(opcao);
@@ -20,22 +21,32 @@ public class mainGSC {
 			
 			switch(op) {
 				case 1:
-				
+					
+					ArrayList<Conta> Cadastro = new ArrayList<>();
+					
+					Conta i = new Conta(); 
+					System.out.println(" =/=/=/=CADASTRO=/=/=/=" + "\n");
+					System.out.println("Digite o seu nome:");
+					String n = leitura.nextLine();
+					i.setNome(n); 
 					
 					break;
 			
 				case 2:
 					
+					//Buscar uma conta;
 					
 					break;
 					
 				case 3:
 					
+					//Excluir uma conta;
 					
 					break;
 					
 				case 4:
-				
+					
+				    //Listagem das contas cadastradas;
 					
 					break;
 				
