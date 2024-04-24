@@ -3,6 +3,9 @@ public class Conta extends Endereco {
 
 	private String nome;
 	private int numeroConta;
+	private int numeroTelefone;
+	private float valorSaldo;
+	
 	public String getNome() {
 		return nome;
 	}
@@ -27,7 +30,6 @@ public class Conta extends Endereco {
 	public void setValorSaldo(float valorSaldo) {
 		this.valorSaldo = valorSaldo;
 	}
-	private int numeroTelefone;
-	private float valorSaldo;
+	
 
 }
