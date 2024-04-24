@@ -7,6 +7,7 @@ public class mainGSC {
 		Scanner leitura = new Scanner(System.in);
 		int op=0;
 		ArrayList<Conta> Cadastro = new ArrayList<>();
+		
 		do {
 			System.out.println(" =/=/=/=/MENU/=/=/=/=" + "\n\n" + "1-Cadastrar uma conta;" + "\n" + "2-Buscar uma conta;" + "\n" + "3-Excluir uma conta;" + "\n" + "4-Listar contas cadastradas;" + "\n" + "5-Encerrar o programa." + "\n");
 			System.out.println("Digite a opcao desejada:");
@@ -24,6 +25,7 @@ public class mainGSC {
 				case 1:
 					
 					Conta i = new Conta(); 
+					
 					System.out.println(" =/=/=/=CADASTRO=/=/=/=" + "\n");
 					System.out.println("Digite o seu nome:");
 					String nome = leitura.nextLine();
@@ -37,9 +39,10 @@ public class mainGSC {
 					System.out.println("Digite seu numero de telefone:");
 					String numeroTelefonetxt = leitura.nextLine();
 					int numeroTelefone = Integer.valueOf(numeroTelefonetxt);
-					i.setNumeroTelefone(numeroConta);
+					i.setNumeroTelefone(numeroTelefone);
+				
 					
-					System.out.println("Digite ");
+					Cadastro.add(i);
 					break;
 			
 				case 2:
@@ -55,12 +58,20 @@ public class mainGSC {
 					break;
 					
 				case 4:
-					//deixa bunito
-				    //System.out.println("Listagem de conta");
+				    System.out.println("Listagem de conta");
 					for (Conta conta : Cadastro) {
+						
 						System.out.println(conta.getNome());
+						System.out.println(conta.getNumeroConta());
+						System.out.println(conta.getNumeroTelefone());
+						System.out.println(conta.getBairro());
+						System.out.println(conta.getRua());
+						System.out.println(conta.getComplemento());
+						System.out.println(conta.getNumeroCasa());
+						System.out.println(conta.getCep());
+						System.out.println(conta.getValorSaldo()+"\n");
+  					
 					}
-					
 					break;
 				
 			}
