@@ -10,14 +10,14 @@ public class mainGSC {
 		do {
 			System.out.println(" =/=/=/=/MENU/=/=/=/=" + "\n\n" + "1-Cadastrar uma conta;" + "\n" + "2-Buscar uma conta;" + "\n" + "3-Excluir uma conta;" + "\n" + "4-Listar contas cadastradas;" + "\n" + "5-Encerrar o programa." + "\n");
 			System.out.println("Digite a opcao desejada:");
-			String opcao = leitura.nextLine();
-			op = Integer.valueOf(opcao);
+			String optxt = leitura.nextLine();
+			op = Integer.valueOf(optxt);
 			
 			while((op<0)||(op>5)) {
 				System.out.println("Opcao digitada não encontrada!");
 				System.out.println("Digite novamente:");
-				opcao = leitura.nextLine();
-				op = Integer.valueOf(opcao);
+				optxt = leitura.nextLine();
+				op = Integer.valueOf(optxt);
 			}
 			
 			switch(op) {
@@ -28,8 +28,18 @@ public class mainGSC {
 					System.out.println("Digite o seu nome:");
 					String nome = leitura.nextLine();
 					i.setNome(nome); 
-					Cadastro.add(i);
 					
+					System.out.println("Digite o numero da conta:");
+					String numeroContatxt = leitura.nextLine();
+					int numeroConta = Integer.valueOf(numeroContatxt);
+					i.setNumeroConta(numeroConta);
+					
+					System.out.println("Digite seu numero de telefone:");
+					String numeroTelefonetxt = leitura.nextLine();
+					int numeroTelefone = Integer.valueOf(numeroTelefonetxt);
+					i.setNumeroTelefone(numeroConta);
+					
+					System.out.println("Digite ");
 					break;
 			
 				case 2:
