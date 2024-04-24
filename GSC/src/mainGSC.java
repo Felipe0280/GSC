@@ -24,8 +24,7 @@ public class mainGSC {
 			switch(op) {
 				case 1:
 					
-					Conta i = new Conta(); 
-					
+					Conta i = new Conta();
 					System.out.println(" =/=/=/=CADASTRO=/=/=/=" + "\n");
 					System.out.println("Digite o seu nome:");
 					String nome = leitura.nextLine();
@@ -40,9 +39,38 @@ public class mainGSC {
 					String numeroTelefonetxt = leitura.nextLine();
 					int numeroTelefone = Integer.valueOf(numeroTelefonetxt);
 					i.setNumeroTelefone(numeroTelefone);
-				
+					
+					System.out.println("Digite seu endereco:");
+					
+					System.out.println("Bairro:");
+					String bairro = leitura.nextLine();
+					i.setBairro(bairro);
+					
+					System.out.println("Rua:");
+					String rua = leitura.nextLine();
+					i.setRua(rua);
+					
+					System.out.println("Digite um complemento:");
+					String complemento = leitura.nextLine();
+					i.setComplemento(complemento);
+					
+					System.out.println("Digite o numero da casa:");
+					String numeroCasatxt = leitura.nextLine();
+					int numeroCasa = Integer.valueOf(numeroCasatxt);
+					i.setNumeroCasa(numeroCasa);
+					
+					System.out.println("Digite o cep:");
+					String ceptxt = leitura.nextLine();
+					int cep = Integer.valueOf(ceptxt);
+					i.setCep(cep);
+					
+					System.out.println("Digite valor do saldo: ");
+					String valorSaldotxt = leitura.nextLine();
+					float valorSaldo = Float.valueOf(valorSaldotxt);
+					i.setValorSaldo(valorSaldo);
 					
 					Cadastro.add(i);
+					
 					break;
 			
 				case 2:
