@@ -22,6 +22,7 @@ public class mainGSC {
 			
 			switch(op) {
 				case 1:
+					// Cadastro de contas;
 					
 					Conta i = new Conta();
 					System.out.println(" =/=/=/=CADASTRO=/=/=/=" + "\n");
@@ -96,6 +97,32 @@ public class mainGSC {
 				case 2:
 					
 					//Buscar uma conta;
+					//deixar as mensagem bonitas;
+					System.out.println("Busca:");
+					System.out.println("Digite o N° da conta que vc quer encontrar: ");
+					numeroContatxt = leitura.nextLine();
+					int numeroContaBusca = Integer.valueOf(numeroContatxt);
+					icontrola = 0;
+					for (Conta conta : Cadastro) {
+						if(numeroContaBusca == conta.getNumeroConta()) {
+							
+							System.out.println(conta.getNome());
+							System.out.println(conta.getNumeroConta());
+							System.out.println(conta.getNumeroTelefone());
+							System.out.println(conta.getBairro());
+							System.out.println(conta.getRua());
+							System.out.println(conta.getComplemento());
+							System.out.println(conta.getNumeroCasa());
+							System.out.println(conta.getCep());
+							System.out.println(conta.getValorSaldo()+"\n");
+							icontrola++;
+						}
+					}
+					if(icontrola == 0) {
+						System.out.println("N° da conta nao encontrado!");
+					}else {
+						System.out.println("Busca concluida com sucesso!");
+					}
 					
 					break;
 					
