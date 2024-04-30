@@ -2,9 +2,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class mainGSC {
+	
 	public static void main(String[] args) {
 		Scanner leitura = new Scanner(System.in);
+		
 		int op=0, icontrola = 0;
+		boolean confirmacao = false;
+		String confirmaAtt, novoNome;
+		
 		ArrayList<Conta> Cadastro = new ArrayList<>();
 		
 		do {
@@ -122,7 +127,68 @@ public class mainGSC {
 						System.out.println("N° da conta nao encontrado!");
 					}else {
 						System.out.println("Busca concluida com sucesso!");
+						System.out.println("Voce deseja atualizar os dados da conta?(responda com sim ou nao, qualquer outra escrita resultara em uma falha)");
+						confirmaAtt = leitura.nextLine();
+						System.out.println(confirmaAtt);
+						if(confirmaAtt.equals("sim")) {
+						
+							// fazer menu e deixar os negocio bonito
+							System.out.println("Menu de atualiacao: ");
+							//1-nome;2-n° de telefone;3-endereço;4-valor do saldo;
+							System.out.println("Digite a opcao desejada:");
+							String op2txt = leitura.nextLine();
+							int op2 = Integer.valueOf(op2txt);
+							
+							if(op2 == 1) {
+								//atualizar nome da conta
+								
+								for (Conta conta : Cadastro) {
+									if(numeroContaBusca == conta.getNumeroConta()) {
+										System.out.println("Nome da conta antiga: "+conta.getNome());
+										System.out.println("Digite o nome que ira substituir: ");
+										novoNome = leitura.nextLine();
+										if(novoNome.equals(conta.getNome())) {
+											System.out.println("O novo nome é igual ao registrado nessa conta! ");
+											System.out.println("Voce deseja digitar um novo nome valido?");
+											confirmaAtt = leitura.nextLine();
+											if(confirmaAtt.equals("sim")) {
+												while(confirmaAtt.equals("sim")) {
+													System.out.println("Nome da conta antiga: "+conta.getNome());
+													System.out.println("Digite o nome que ira substituir: ");
+													novoNome = leitura.nextLine();
+													if(novoNome.equals(conta.getNome())) {
+														System.out.println("O novo nome é igual ao registrado nessa conta! ");
+														System.out.println("Voce deseja digitar um novo nome valido?");
+														confirmaAtt = leitura.nextLine();
+													}
+												}
+												conta.setNome(novoNome);
+											}
+											
+											break;
+										}else {
+											conta.setNome(novoNome);
+											break;
+										}
+									}
+								}
+							}
+							
+							if(op2 == 2) {
+								//atualizar n° de telefone
+							}
+							
+							if(op2 == 3) {
+								//atualizar endereço completo
+							}
+							
+							if(op2 == 4) {
+								//atualizar valor do saldo
+							}
+						
+						}
 					}
+					
 					
 					break;
 					
@@ -152,6 +218,7 @@ public class mainGSC {
 			}
 			
 		}while(op!=5);
+		
+		}
 	}
 
-}
