@@ -2,10 +2,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class mainGSC {
-
 	public static void main(String[] args) {
 		Scanner leitura = new Scanner(System.in);
-		int op=0;
+		int op=0, icontrola = 0;
 		ArrayList<Conta> Cadastro = new ArrayList<>();
 		
 		do {
@@ -33,6 +32,28 @@ public class mainGSC {
 					System.out.println("Digite o numero da conta:");
 					String numeroContatxt = leitura.nextLine();
 					int numeroConta = Integer.valueOf(numeroContatxt);
+					
+					// Verificação de numero da conta:
+					for (Conta conta : Cadastro) {
+						if(numeroConta == conta.getNumeroConta()) {
+							icontrola++;
+						}
+					}
+					if(icontrola != 0) {
+						while(icontrola != 0 ) {
+							//deixar a mensagem bonita:
+							icontrola = 0;
+							System.out.println("Numero de conta ja existente!");
+							System.out.println("Digite um outro numero:");
+							numeroContatxt = leitura.nextLine();
+							numeroConta = Integer.valueOf(numeroContatxt);
+							for (Conta conta : Cadastro) {
+								if(numeroConta == conta.getNumeroConta()) {
+									icontrola++;
+								}
+							}
+						}
+					}
 					i.setNumeroConta(numeroConta);
 					
 					System.out.println("Digite seu numero de telefone:");
@@ -68,7 +89,6 @@ public class mainGSC {
 					String valorSaldotxt = leitura.nextLine();
 					float valorSaldo = Float.valueOf(valorSaldotxt);
 					i.setValorSaldo(valorSaldo);
-					
 					Cadastro.add(i);
 					
 					break;
@@ -86,7 +106,7 @@ public class mainGSC {
 					break;
 					
 				case 4:
-				    System.out.println("Listagem de conta");
+				    System.out.println("Listagem de conta"+"\n");
 					for (Conta conta : Cadastro) {
 						
 						System.out.println(conta.getNome());
