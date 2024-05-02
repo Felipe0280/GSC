@@ -97,6 +97,7 @@ public class mainGSC {
 					i.setValorSaldo(valorSaldo);
 					Cadastro.add(i);
 					
+					System.out.println("\n"+"Conta cadastrada ccom sucesso!");
 					break;
 			
 				case 2:
@@ -160,14 +161,20 @@ public class mainGSC {
 														System.out.println("O novo nome é igual ao registrado nessa conta! ");
 														System.out.println("Voce deseja digitar um novo nome valido?");
 														confirmaAtt = leitura.nextLine();
+													}else {
+														confirmaAtt = "nao";
 													}
 												}
 												conta.setNome(novoNome);
+												System.out.println("Conta atualizada com sucesso!");
+												break;
+											}else {
+												System.out.println("Atualização cancelada com sucesso!");
+												break;
 											}
-											
-											break;
 										}else {
 											conta.setNome(novoNome);
+											System.out.println("Conta atualizada com sucesso!");
 											break;
 										}
 									}
@@ -176,7 +183,47 @@ public class mainGSC {
 							
 							if(op2 == 2) {
 								//atualizar n° de telefone
+								
+								for (Conta conta : Cadastro) {
+									if(numeroContaBusca == conta.getNumeroConta()) {
+										System.out.println("N° de telefone da conta antiga: "+conta.getNumeroTelefone());
+										System.out.println("Digite o n° de telefone que ira substituir: ");
+										String novoTelefonetxt = leitura.nextLine();
+										int novoTelefone = Integer.valueOf(novoTelefonetxt);
+										if(novoTelefone == conta.getNumeroTelefone()) {
+											System.out.println("O novo n° de telefone é igual ao registrado nessa conta! ");
+											System.out.println("Voce deseja digitar um novo n° de telefone  valido?");
+											confirmaAtt = leitura.nextLine();
+											if(confirmaAtt.equals("sim")) {
+												while(confirmaAtt.equals("sim")) {
+													System.out.println("N° de telefone da conta antiga: "+conta.getNumeroTelefone());
+													System.out.println("Digite o n° de telefone que ira substituir: ");
+													novoTelefonetxt = leitura.nextLine();
+													novoTelefone = Integer.valueOf(novoTelefonetxt);
+													if(novoTelefone == conta.getNumeroTelefone()) {
+														System.out.println("O novo n° de telefone é igual ao registrado nessa conta! ");
+														System.out.println("Voce deseja digitar um novo n° de telefone  valido?");
+														confirmaAtt = leitura.nextLine();
+													}else {
+														confirmaAtt = "nao";
+													}
+												}
+												conta.setNumeroTelefone(novoTelefone);
+												System.out.println("Conta atualizada com sucesso!");
+												break;
+											}else {
+												System.out.println("Atualização cancelada com sucesso!");
+												break;
+											}
+										}else {
+											conta.setNumeroTelefone(novoTelefone);
+											System.out.println("Conta atualizada com sucesso!");
+											break;
+										}
+									}
+								}
 							}
+							
 							
 							if(op2 == 3) {
 								//atualizar endereço completo
