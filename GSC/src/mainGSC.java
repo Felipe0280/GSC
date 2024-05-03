@@ -35,12 +35,20 @@ public class mainGSC {
 					String nome = leitura.nextLine();
 					i.setNome(nome); 
 					
-					System.out.println("Digite o numero da conta:");
+					System.out.println("Digite o numero para a conta(o numero precisa ser maior que 0):");
 					String numeroContatxt = leitura.nextLine();
 					int numeroConta = Integer.valueOf(numeroContatxt);
-					
+					if(numeroConta < 0 ) {
+						while(numeroConta < 0) {
+							System.out.println("Numero da conta invalido!");
+							System.out.println("Digite um numero de conta valido:");
+							numeroContatxt = leitura.nextLine();
+							numeroConta = Integer.valueOf(numeroContatxt);
+						}
+					}
 					// Verificação de numero da conta:
 					for (Conta conta : Cadastro) {
+						icontrola = 0;
 						if(numeroConta == conta.getNumeroConta()) {
 							icontrola++;
 						}
@@ -112,15 +120,15 @@ public class mainGSC {
 					for (Conta conta : Cadastro) {
 						if(numeroContaBusca == conta.getNumeroConta()) {
 							
-							System.out.println(conta.getNome());
-							System.out.println(conta.getNumeroConta());
-							System.out.println(conta.getNumeroTelefone());
-							System.out.println(conta.getBairro());
-							System.out.println(conta.getRua());
-							System.out.println(conta.getComplemento());
-							System.out.println(conta.getNumeroCasa());
-							System.out.println(conta.getCep());
-							System.out.println(conta.getValorSaldo()+"\n");
+							System.out.println("Nome: "+conta.getNome());
+							System.out.println("Numero da conta: "+conta.getNumeroConta());
+							System.out.println("Numero de telefone: "+conta.getNumeroTelefone());
+							System.out.println("Bairro: "+conta.getBairro());
+							System.out.println("Rua: "+conta.getRua());
+							System.out.println("Complemento: "+conta.getComplemento());
+							System.out.println("Numero da casa: "+conta.getNumeroCasa());
+							System.out.println("Cep: "+conta.getCep());
+							System.out.println("Valor do saldo: "+conta.getValorSaldo()+"\n");
 							icontrola++;
 						}
 					}
@@ -135,7 +143,7 @@ public class mainGSC {
 						
 							// fazer menu e deixar os negocio bonito
 							System.out.println("Menu de atualiacao: ");
-							//1-nome;2-n° de telefone;3-endereço;4-valor do saldo;
+							//1-nome;2-n° de telefone;3-endereço completo;4-valor do saldo;5-cancelar atualização; acima disso nao funciona;
 							System.out.println("Digite a opcao desejada:");
 							String op2txt = leitura.nextLine();
 							int op2 = Integer.valueOf(op2txt);
@@ -164,10 +172,14 @@ public class mainGSC {
 													}else {
 														confirmaAtt = "nao";
 													}
+												}if(!confirmaAtt.equals("sim")) {
+													System.out.println("Atualização cancelada com sucesso!");
+													break;
+												}else {
+													conta.setNome(novoNome);
+													System.out.println("Conta atualizada com sucesso!");
+													break;
 												}
-												conta.setNome(novoNome);
-												System.out.println("Conta atualizada com sucesso!");
-												break;
 											}else {
 												System.out.println("Atualização cancelada com sucesso!");
 												break;
@@ -192,7 +204,7 @@ public class mainGSC {
 										int novoTelefone = Integer.valueOf(novoTelefonetxt);
 										if(novoTelefone == conta.getNumeroTelefone()) {
 											System.out.println("O novo n° de telefone é igual ao registrado nessa conta! ");
-											System.out.println("Voce deseja digitar um novo n° de telefone  valido?");
+											System.out.println("Voce deseja digitar um novo n° de telefone valido?");
 											confirmaAtt = leitura.nextLine();
 											if(confirmaAtt.equals("sim")) {
 												while(confirmaAtt.equals("sim")) {
@@ -202,15 +214,19 @@ public class mainGSC {
 													novoTelefone = Integer.valueOf(novoTelefonetxt);
 													if(novoTelefone == conta.getNumeroTelefone()) {
 														System.out.println("O novo n° de telefone é igual ao registrado nessa conta! ");
-														System.out.println("Voce deseja digitar um novo n° de telefone  valido?");
+														System.out.println("Voce deseja digitar um novo n° de telefone valido?");
 														confirmaAtt = leitura.nextLine();
 													}else {
 														confirmaAtt = "nao";
 													}
+												}if(!confirmaAtt.equals("sim")) {
+													System.out.println("Atualização cancelada com sucesso!");
+													break;
+												}else {
+													conta.setNumeroTelefone(novoTelefone);
+													System.out.println("Conta atualizada com sucesso!");
+													break;
 												}
-												conta.setNumeroTelefone(novoTelefone);
-												System.out.println("Conta atualizada com sucesso!");
-												break;
 											}else {
 												System.out.println("Atualização cancelada com sucesso!");
 												break;
@@ -227,10 +243,63 @@ public class mainGSC {
 							
 							if(op2 == 3) {
 								//atualizar endereço completo
+								//Fazer um menu caso ele queira atualizar so uma parte do endereço?
+								
 							}
 							
 							if(op2 == 4) {
 								//atualizar valor do saldo
+								for (Conta conta : Cadastro) {
+									if(numeroContaBusca == conta.getNumeroConta()) {
+										System.out.println("Valor de saldo da conta antiga: "+conta.getValorSaldo());
+										System.out.println("Digite o valor de saldo que ira substituir: ");
+										String novoSaldotxt = leitura.nextLine();
+										int novoSaldo = Integer.valueOf(novoSaldotxt);
+										if(novoSaldo == conta.getValorSaldo()) {
+											System.out.println("O novo valor de saldo é igual ao registrado nessa conta! ");
+											System.out.println("Voce deseja digitar um novo valor de saldo valido?");
+											confirmaAtt = leitura.nextLine();
+											if(confirmaAtt.equals("sim")) {
+												while(confirmaAtt.equals("sim")) {
+													System.out.println("Valor de saldo da conta antiga: "+conta.getValorSaldo());
+													System.out.println("Digite o valor de saldo que ira substituir: ");
+													novoSaldotxt = leitura.nextLine();
+													novoSaldo = Integer.valueOf(novoSaldotxt);
+													if(novoSaldo == conta.getValorSaldo()) {
+														System.out.println("O novo valor de saldo é igual ao registrado nessa conta! ");
+														System.out.println("Voce deseja digitar um novo valor de saldo  valido?");
+														confirmaAtt = leitura.nextLine();
+													}else {
+														confirmaAtt = "nao";
+													}
+												}if(!confirmaAtt.equals("sim")) {
+													System.out.println("Atualização cancelada com sucesso!");
+													break;
+												}else {
+													conta.setValorSaldo(novoSaldo);
+													System.out.println("Conta atualizada com sucesso!");
+													break;
+												}
+												
+											}else {
+												System.out.println("Atualização cancelada com sucesso!");
+												break;
+											}
+										}else {
+											conta.setValorSaldo(novoSaldo);
+											System.out.println("Conta atualizada com sucesso!");
+											break;
+										}
+									}
+								}
+								
+							}
+							if(op2 == 5) {
+								System.out.println("Atualização cancelada com sucesso!");
+								break;
+							}
+							if((op2<0)||(op2>5)) {
+								System.out.println("Opção digitada nao foi encontrada!");
 							}
 						
 						}
@@ -240,25 +309,41 @@ public class mainGSC {
 					break;
 					
 				case 3:
-					
 					//Excluir uma conta;
+					System.out.println("Exclusao de conta!");
+					System.out.println("Digite o N° da conta que vc quer excluir: ");
+					numeroContatxt = leitura.nextLine();
+					int numeroContaExcluir = Integer.valueOf(numeroContatxt);
+					icontrola = 0;
+					for (Conta conta : Cadastro) {
+						if(numeroContaExcluir == conta.getNumeroConta()) {
+							conta.setNumeroConta(-1);
+							icontrola++;
+						}
+						
+					}
+					if(icontrola == 0) {
+						System.out.println("N° da conta buscado nao foi encontrado!");
+					}else {
+						System.out.println("Conta excluida com sucesso");
+					}
 					
 					break;
 					
 				case 4:
 				    System.out.println("Listagem de conta"+"\n");
 					for (Conta conta : Cadastro) {
-						
-						System.out.println(conta.getNome());
-						System.out.println(conta.getNumeroConta());
-						System.out.println(conta.getNumeroTelefone());
-						System.out.println(conta.getBairro());
-						System.out.println(conta.getRua());
-						System.out.println(conta.getComplemento());
-						System.out.println(conta.getNumeroCasa());
-						System.out.println(conta.getCep());
-						System.out.println(conta.getValorSaldo()+"\n");
-  					
+						if(conta.getNumeroConta()!= -1) {
+							System.out.println("Nome: "+conta.getNome());
+							System.out.println("Numero da conta: "+conta.getNumeroConta());
+							System.out.println("Numero de telefone: "+conta.getNumeroTelefone());
+							System.out.println("Bairro: "+conta.getBairro());
+							System.out.println("Rua: "+conta.getRua());
+							System.out.println("Complemento: "+conta.getComplemento());
+							System.out.println("Numero da casa: "+conta.getNumeroCasa());
+							System.out.println("Cep: "+conta.getCep());
+							System.out.println("Valor do saldo: "+conta.getValorSaldo()+"\n");
+						}
 					}
 					break;
 				
@@ -268,4 +353,3 @@ public class mainGSC {
 		
 		}
 	}
-
