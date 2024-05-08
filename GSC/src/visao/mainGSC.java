@@ -2,6 +2,7 @@ package visao;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import controle.ContaDAO;
 import modelo.Conta;
 
 public class mainGSC {
@@ -12,8 +13,6 @@ public class mainGSC {
 		int op=0, icontrola = 0;
 		boolean confirmacao = false;
 		String confirmaAtt, novoNome;
-		
-		ArrayList<Conta> Cadastro = new ArrayList<>();
 		
 		do {
 			System.out.println("\n" + " =/=/=/=MENU=/=/=/=" + "\n\n" + "1-Cadastrar uma conta;" + "\n" + "2-Pesquisar uma conta cadastrada;" + "\n" + "3-Excluir uma conta cadastrada;" + "\n" + "4-Listar contas cadastradas;" + "\n" + "5-Encerrar o programa." + "\n");
@@ -37,42 +36,6 @@ public class mainGSC {
 					System.out.println("Digite o seu nome:");
 					String nome = leitura.nextLine();
 					i.setNome(nome); 
-					
-					System.out.println("Digite o numero da conta:");
-					System.out.println("Observacao: O numero da conta precisa ser maior do que 0!");
-					String numeroContatxt = leitura.nextLine();
-					int numeroConta = Integer.valueOf(numeroContatxt);
-					if(numeroConta <= 0 ) {
-						while(numeroConta <= 0) {
-							System.out.println("Numero da conta invalido!");
-							System.out.println("Digite um numero de conta valido:");
-							numeroContatxt = leitura.nextLine();
-							numeroConta = Integer.valueOf(numeroContatxt);
-						}
-					}
-					// Verificação de numero da conta:
-					for (Conta conta : Cadastro) {
-						icontrola = 0;
-						if(numeroConta == conta.getNumeroConta()) {
-							icontrola++;
-						}
-					}
-					if(icontrola != 0) {
-						while(icontrola != 0 ) {
-							//deixar a mensagem bonita:
-							icontrola = 0;
-							System.out.println("Numero de conta ja cadastrado no sistema!");
-							System.out.println("Digite um outro numero de conta valido:");
-							numeroContatxt = leitura.nextLine();
-							numeroConta = Integer.valueOf(numeroContatxt);
-							for (Conta conta : Cadastro) {
-								if(numeroConta == conta.getNumeroConta()) {
-									icontrola++;
-								}
-							}
-						}
-					}
-					i.setNumeroConta(numeroConta);
 					
 					System.out.println("Digite seu numero de telefone:");
 					String numeroTelefonetxt = leitura.nextLine();
@@ -107,7 +70,8 @@ public class mainGSC {
 					String valorSaldotxt = leitura.nextLine();
 					float valorSaldo = Float.valueOf(valorSaldotxt);
 					i.setValorSaldo(valorSaldo);
-					Cadastro.add(i);
+					ContaDAO dao = new ContaDAO();
+					dao.inserir(i);
 					
 					System.out.println("\n"+"Conta cadastrada ccom sucesso!");
 					break;
@@ -610,9 +574,9 @@ public class mainGSC {
 					break;
 					
 				case 4:
-				    System.out.println("\n"+"=/=/=/=LISTAGEM DE CONTAS=/=/=/="+"\n");
-					for (Conta conta : Cadastro) {
-						if(conta.getNumeroConta()!= -1) {
+				    System.out.println("\n"+" =/=/=/=LISTAGEM DE CONTAS=/=/=/="+"\n");
+					for (Conta conta : dao.listar()) {
+						if(conta.getNumeroConta()!=-1) {
 							System.out.println("Nome: "+conta.getNome());
 							System.out.println("Numero da conta: "+conta.getNumeroConta());
 							System.out.println("Numero de telefone: "+conta.getNumeroTelefone());
@@ -625,7 +589,6 @@ public class mainGSC {
 						}
 					}
 					break;
-				
 			}
 			
 		}while(op!=5);
