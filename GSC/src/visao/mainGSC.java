@@ -1,5 +1,8 @@
+package visao;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import modelo.Conta;
 
 public class mainGSC {
 	
