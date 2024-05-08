@@ -1,5 +1,33 @@
 package controle;
 
-public class ContaDAO {
+import java.util.ArrayList;
 
+import modelo.Conta;
+
+public class ContaDAO {
+	   
+	   private ArrayList<Conta> Cadastro ;
+	   private int geradorId;
+	   
+	   public ContaDAO() {
+		   this.Cadastro = new ArrayList<>();
+		   this.geradorId = 1;
+	   }
+	 
+	   public int inserir(Conta conta) {
+           
+		   if(conta!=null) {
+			 conta.setNumeroConta(geradorId);  
+			 geradorId++;
+			 Cadastro.add(conta);
+		   }
+		   
+    	   return conta.getNumeroConta();
+       }
+	   
+	   public ArrayList<Conta>listar(){
+		   
+		   return this.Cadastro;
+	   }
+	   
 }
