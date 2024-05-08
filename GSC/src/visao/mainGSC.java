@@ -13,6 +13,7 @@ public class mainGSC {
 		int op=0, icontrola = 0;
 		boolean confirmacao = false;
 		String confirmaAtt, novoNome;
+		ContaDAO dao = new ContaDAO();
 		
 		do {
 			System.out.println("\n" + " =/=/=/=MENU=/=/=/=" + "\n\n" + "1-Cadastrar uma conta;" + "\n" + "2-Pesquisar uma conta cadastrada;" + "\n" + "3-Excluir uma conta cadastrada;" + "\n" + "4-Listar contas cadastradas;" + "\n" + "5-Encerrar o programa." + "\n");
@@ -70,10 +71,10 @@ public class mainGSC {
 					String valorSaldotxt = leitura.nextLine();
 					float valorSaldo = Float.valueOf(valorSaldotxt);
 					i.setValorSaldo(valorSaldo);
-					ContaDAO dao = new ContaDAO();
+					
 					dao.inserir(i);
 					
-					System.out.println("\n"+"Conta cadastrada ccom sucesso!");
+					System.out.println("\n"+"Conta cadastrada com sucesso!");
 					break;
 			
 				case 2:
@@ -81,11 +82,11 @@ public class mainGSC {
 					//Buscar uma conta;
 					System.out.println("\n" + " =/=/=/=PESQUISAR=/=/=/=" + "\n");
 					System.out.println("Digite o numero da conta que voce deseja pesquisar:");
-					numeroContatxt = leitura.nextLine();
+					String numeroContatxt = leitura.nextLine();
 					int numeroContaBusca = Integer.valueOf(numeroContatxt);
 					icontrola = 0;
 					if(numeroContaBusca > 0) {
-						for (Conta conta : Cadastro) {
+						for (Conta conta : dao.listar()) {
 							if(numeroContaBusca == conta.getNumeroConta()) {
 								
 								System.out.println("\n" + "Nome: "+conta.getNome());
@@ -117,7 +118,7 @@ public class mainGSC {
 								if(op2 == 1) {
 									//atualizar nome da conta
 									
-									for (Conta conta : Cadastro) {
+									for (Conta conta : dao.listar()) {
 										if(numeroContaBusca == conta.getNumeroConta()) {
 											System.out.println("\n" + "Nome antigo da conta: "+conta.getNome());
 											System.out.println("Digite o nome novo da conta :");
@@ -165,7 +166,7 @@ public class mainGSC {
 								if(op2 == 2) {
 									//atualizar n° de telefone
 									
-									for (Conta conta : Cadastro) {
+									for (Conta conta : dao.listar()) {
 										if(numeroContaBusca == conta.getNumeroConta()) {
 											System.out.println("\n"+"Numero de telefone da conta antiga: "+conta.getNumeroTelefone());
 											System.out.println("Digite o numero de telefone novo: ");
@@ -222,7 +223,7 @@ public class mainGSC {
 									
 										if(op3 == 1) {
 											//atualizar bairro
-											for (Conta conta : Cadastro) {
+											for (Conta conta : dao.listar()) {
 												if(numeroContaBusca == conta.getNumeroConta()) {
 													System.out.println("\n"+"Bairro da conta antiga: "+conta.getBairro());
 													System.out.println("Digite o bairro novo: ");
@@ -269,7 +270,7 @@ public class mainGSC {
 										}
 										if(op3 == 2) {
 											//atualizar rua
-											for (Conta conta : Cadastro) {
+											for (Conta conta : dao.listar()) {
 												if(numeroContaBusca == conta.getNumeroConta()) {
 													System.out.println("\n"+"Rua da conta antiga: "+conta.getRua());
 													System.out.println("Digite a rua nova: ");
@@ -315,7 +316,7 @@ public class mainGSC {
 										}
 										if(op3 == 3) {
 											//atualizar complemento
-											for (Conta conta : Cadastro) {
+											for (Conta conta : dao.listar()) {
 												if(numeroContaBusca == conta.getNumeroConta()) {
 													System.out.println("\n"+"Complemento da conta antiga: "+conta.getComplemento());
 													System.out.println("Digite o complemento novo: ");
@@ -361,7 +362,7 @@ public class mainGSC {
 										}
 										if(op3 == 4) {
 											//atualizar numero da casa
-											for (Conta conta : Cadastro) {
+											for (Conta conta : dao.listar()) {
 												if(numeroContaBusca == conta.getNumeroConta()) {
 													System.out.println("\n"+"Numero da casa da conta antiga: "+conta.getNumeroCasa());
 													System.out.println("Digite o numero da casa novo: ");
@@ -409,7 +410,7 @@ public class mainGSC {
 										}
 										if(op3 == 5) {
 											//atualizar cep
-											for (Conta conta : Cadastro) {
+											for (Conta conta : dao.listar()) {
 												if(numeroContaBusca == conta.getNumeroConta()) {
 													System.out.println("\n"+"Cep da conta antiga: "+conta.getCep());
 													System.out.println("Digite o cep novo: ");
@@ -466,7 +467,7 @@ public class mainGSC {
 								
 								if(op2 == 4) {
 									//atualizar valor do saldo
-									for (Conta conta : Cadastro) {
+									for (Conta conta : dao.listar()) {
 										if(numeroContaBusca == conta.getNumeroConta()) {
 											System.out.println("\n" +"Valor de saldo da conta antiga: "+conta.getValorSaldo());
 											System.out.println("Digite o valor de saldo novo: ");
@@ -539,7 +540,7 @@ public class mainGSC {
 					numeroContatxt = leitura.nextLine();
 					int numeroContaExcluir = Integer.valueOf(numeroContatxt);
 					icontrola = 0;
-						for (Conta conta : Cadastro) {
+						for (Conta conta : dao.listar()) {
 							if(numeroContaExcluir == conta.getNumeroConta()) {
 								System.out.println("\n" + "Nome: "+conta.getNome());
 								System.out.println("Numero da conta: "+conta.getNumeroConta());
