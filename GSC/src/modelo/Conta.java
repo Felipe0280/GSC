@@ -1,10 +1,19 @@
 package modelo;
-public class Conta extends Endereco {
+public class Conta {
 
 	private String nome;
 	private int numeroConta;
 	private int numeroTelefone;
 	private float valorSaldo;
+	private Endereco endereco;
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 
 	public String getNome() {
 		return nome;

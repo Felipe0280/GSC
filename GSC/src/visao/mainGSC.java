@@ -1,12 +1,14 @@
 package visao;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import controle.ContaDAO;
 import modelo.Conta;
+import modelo.Endereco;
 
 public class mainGSC {
-	
+
 	public static void main(String[] args) {
 		Scanner leitura = new Scanner(System.in);
 		
@@ -46,25 +48,30 @@ public class mainGSC {
 					
 					System.out.println("Bairro:");
 					String bairro = leitura.nextLine();
-					i.setBairro(bairro);
 					
 					System.out.println("Rua:");
 					String rua = leitura.nextLine();
-					i.setRua(rua);
 					
 					System.out.println("Digite um complemento:");
 					String complemento = leitura.nextLine();
-					i.setComplemento(complemento);
 					
 					System.out.println("Digite o numero da casa:");
 					String numeroCasatxt = leitura.nextLine();
 					int numeroCasa = Integer.valueOf(numeroCasatxt);
-					i.setNumeroCasa(numeroCasa);
 					
 					System.out.println("Digite o cep:");
 					String ceptxt = leitura.nextLine();
 					int cep = Integer.valueOf(ceptxt);
-					i.setCep(cep);
+					
+					// Criando um obj para guardar as informacoes de endereco
+					Endereco end = new Endereco();
+					end.setBairro(bairro);
+					end.setCep(cep);
+					end.setComplemento(complemento);
+					end.setNumeroCasa(numeroCasa);
+					end.setRua(rua);			
+					
+					i.setEndereco(end); //seta na classe conta
 					
 					System.out.println("Digite o valor do saldo: ");
 					String valorSaldotxt = leitura.nextLine();
@@ -91,11 +98,11 @@ public class mainGSC {
 								System.out.println("\n" + "Nome: "+conta.getNome());
 								System.out.println("Numero da conta: "+conta.getNumeroConta());
 								System.out.println("Numero de telefone: "+conta.getNumeroTelefone());
-								System.out.println("Bairro: "+conta.getBairro());
-								System.out.println("Rua: "+conta.getRua());
-								System.out.println("Complemento: "+conta.getComplemento());
-								System.out.println("Numero da casa: "+conta.getNumeroCasa());
-								System.out.println("Cep: "+conta.getCep());
+								System.out.println("Bairro: "+conta.getEndereco().getBairro());
+								System.out.println("Rua: "+conta.getEndereco().getRua());
+								System.out.println("Complemento: "+conta.getEndereco().getComplemento());
+								System.out.println("Numero da casa: "+conta.getEndereco().getNumeroCasa());
+								System.out.println("Cep: "+conta.getEndereco().getCep());
 								System.out.println("Valor do saldo: "+conta.getValorSaldo()+"\n");
 								icontrola++;
 							}
@@ -219,38 +226,39 @@ public class mainGSC {
 									System.out.println("\n" + "Digite a opcao desejada:");
 									String op3txt = leitura.nextLine();
 									int op3 = Integer.valueOf(op3txt);
-									
+									Endereco ende = null;
 										if(op3 == 1) {
 											//atualizar bairro
 											for (Conta conta : dao.listar()) {
+												ende = conta.getEndereco();
 												if(numeroContaBusca == conta.getNumeroConta()) {
-													System.out.println("\n"+"Bairro da conta antiga: "+conta.getBairro());
+													System.out.println("\n"+"Bairro da conta antiga: "+conta.getEndereco().getBairro());
 													System.out.println("Digite o bairro novo: ");
 													String novoBairro = leitura.nextLine();
-													if(novoBairro.equals(conta.getBairro())) {
+													if(novoBairro.equals(conta.getEndereco().getBairro())) {
 														System.out.println("\n"+"O novo bairro é igual ao antigo! ");
 														System.out.println("\n"+"Voce deseja digitar um novo bairro valido?");
 														System.out.println("Observacao: Responda com 'sim' ou 'nao'!" + "\n");
 														confirmaAtt = leitura.nextLine();
 														if(confirmaAtt.equals("sim")) {
 															while(confirmaAtt.equals("sim")) {
-																System.out.println("\n"+"Bairro da conta antiga: "+conta.getBairro());
+																System.out.println("\n"+"Bairro da conta antiga: "+conta.getEndereco().getBairro());
 																System.out.println("Digite o bairro novo: ");
 																novoBairro = leitura.nextLine();
-																if(novoBairro.equals(conta.getBairro())) {
+																if(novoBairro.equals(conta.getEndereco().getBairro())) {
 																	System.out.println("\n"+"O novo bairro é igual ao antigo! ");
 																	System.out.println("\n"+"Voce deseja digitar um novo bairro valido?");
 																	System.out.println("Observacao: Responda com 'sim' ou 'nao'!" + "\n");
 																	confirmaAtt = leitura.nextLine();
 																}else {
-																	conta.setBairro(novoBairro);
+																	ende.setBairro(novoBairro);
 																	break;
 																}
 															}if(!confirmaAtt.equals("sim")) {
 																System.out.println("\n" + "Atualização cancelada com sucesso!" + "\n");
 																break;
 															}else {
-																conta.setBairro(novoBairro);
+																ende.setBairro(novoBairro);
 																System.out.println("\n" + "\n" + "Conta atualizada com sucesso!" + "\n");
 																break;
 															}
@@ -259,45 +267,48 @@ public class mainGSC {
 															break;
 														}
 													}else {
-														conta.setBairro(novoBairro);
+														ende.setBairro(novoBairro);
 														System.out.println("\n" + "Conta atualizada com sucesso!" + "\n");
 														break;
 													}
 												}
+												
+												conta.setEndereco(ende);
 											}
 											
 										}
 										if(op3 == 2) {
 											//atualizar rua
 											for (Conta conta : dao.listar()) {
+												ende = conta.getEndereco();
 												if(numeroContaBusca == conta.getNumeroConta()) {
-													System.out.println("\n"+"Rua da conta antiga: "+conta.getRua());
+													System.out.println("\n"+"Rua da conta antiga: "+conta.getEndereco().getRua());
 													System.out.println("Digite a rua nova: ");
 													String novaRua = leitura.nextLine();
-													if(novaRua.equals(conta.getRua())) {
+													if(novaRua.equals(conta.getEndereco().getRua())) {
 														System.out.println("\n"+"A nova rua é igual a antiga! ");
 														System.out.println("\n"+"Voce deseja digitar uma nova rua valida?");
 														System.out.println("Observacao: Responda com 'sim' ou 'nao'!" + "\n");
 														confirmaAtt = leitura.nextLine();
 														if(confirmaAtt.equals("sim")) {
 															while(confirmaAtt.equals("sim")) {
-																System.out.println("\n"+"Rua da conta antiga: "+conta.getRua());
+																System.out.println("\n"+"Rua da conta antiga: "+conta.getEndereco().getRua());
 																System.out.println("Digite a rua nova: ");
 																novaRua = leitura.nextLine();
-																if(novaRua.equals(conta.getRua())) {
+																if(novaRua.equals(conta.getEndereco().getRua())) {
 																	System.out.println("\n"+"A nova rua é igual a antiga! ");
 																	System.out.println("\n"+"Voce deseja digitar uma nova rua valida?");
 																	System.out.println("Observacao: Responda com 'sim' ou 'nao'!" + "\n");
 																	confirmaAtt = leitura.nextLine();
 																}else {
-																	conta.setRua(novaRua);
+																	ende.setRua(novaRua);
 																	break;
 																}
 															}if(!confirmaAtt.equals("sim")) {
 																System.out.println("\n" + "Atualização cancelada com sucesso!" + "\n");
 																break;
 															}else {
-																conta.setRua(novaRua);
+																ende.setRua(novaRua);
 																System.out.println("\n" + "\n" + "Conta atualizada com sucesso!" + "\n");
 																break;
 															}
@@ -306,44 +317,46 @@ public class mainGSC {
 															break;
 														}
 													}else {
-														conta.setRua(novaRua);
+														ende.setRua(novaRua);
 														System.out.println("\n" + "Conta atualizada com sucesso!" + "\n");
 														break;
 													}
 												}
+												conta.setEndereco(ende);
 											}
 										}
 										if(op3 == 3) {
 											//atualizar complemento
 											for (Conta conta : dao.listar()) {
+												ende = conta.getEndereco();
 												if(numeroContaBusca == conta.getNumeroConta()) {
-													System.out.println("\n"+"Complemento da conta antiga: "+conta.getComplemento());
+													System.out.println("\n"+"Complemento da conta antiga: "+conta.getEndereco().getComplemento());
 													System.out.println("Digite o complemento novo: ");
 													String novoComplemento = leitura.nextLine();
-													if(novoComplemento.equals(conta.getComplemento())) {
+													if(novoComplemento.equals(conta.getEndereco().getComplemento())) {
 														System.out.println("\n"+"O novo complemento é igual ao antigo! ");
 														System.out.println("\n"+"Voce deseja digitar um novo complemento valido?");
 														System.out.println("Observacao: Responda com 'sim' ou 'nao'!" + "\n");
 														confirmaAtt = leitura.nextLine();
 														if(confirmaAtt.equals("sim")) {
 															while(confirmaAtt.equals("sim")) {
-																System.out.println("\n"+"Complemento da conta antiga: "+conta.getComplemento());
+																System.out.println("\n"+"Complemento da conta antiga: "+conta.getEndereco().getComplemento());
 																System.out.println("Digite o complemento novo: ");
 																novoComplemento = leitura.nextLine();
-																if(novoComplemento.equals(conta.getComplemento())) {
+																if(novoComplemento.equals(conta.getEndereco().getComplemento())) {
 																	System.out.println("\n"+"O novo complemento é igual ao antigo! ");
 																	System.out.println("\n"+"Voce deseja digitar um novo complemento valido?");
 																	System.out.println("Observacao: Responda com 'sim' ou 'nao'!" + "\n");
 																	confirmaAtt = leitura.nextLine();
 																}else {
-																	conta.setComplemento(novoComplemento);
+																	ende.setComplemento(novoComplemento);
 																	break;
 																}
 															}if(!confirmaAtt.equals("sim")) {
 																System.out.println("\n" + "Atualização cancelada com sucesso!" + "\n");
 																break;
 															}else {
-																conta.setComplemento(novoComplemento);
+																ende.setComplemento(novoComplemento);
 																System.out.println("\n" + "\n" + "Conta atualizada com sucesso!" + "\n");
 																break;
 															}
@@ -352,46 +365,48 @@ public class mainGSC {
 															break;
 														}
 													}else {
-														conta.setComplemento(novoComplemento);
+														ende.setComplemento(novoComplemento);
 														System.out.println("\n" + "Conta atualizada com sucesso!" + "\n");
 														break;
 													}
 												}
+												conta.setEndereco(ende);
 											}
 										}
 										if(op3 == 4) {
 											//atualizar numero da casa
 											for (Conta conta : dao.listar()) {
+												ende = conta.getEndereco();
 												if(numeroContaBusca == conta.getNumeroConta()) {
-													System.out.println("\n"+"Numero da casa da conta antiga: "+conta.getNumeroCasa());
+													System.out.println("\n"+"Numero da casa da conta antiga: "+conta.getEndereco().getNumeroCasa());
 													System.out.println("Digite o numero da casa novo: ");
 													String novoNumeroCasatxt = leitura.nextLine();
 													int novoNumeroCasa = Integer.valueOf(novoNumeroCasatxt);
-													if(novoNumeroCasa == conta.getNumeroCasa()) {
+													if(novoNumeroCasa == conta.getEndereco().getNumeroCasa()) {
 														System.out.println("\n"+"O novo numero da casa é igual ao antigo! ");
 														System.out.println("\n"+"Voce deseja digitar um novo numero da casa valido?");
 														System.out.println("Observacao: Responda com 'sim' ou 'nao'!" + "\n");
 														confirmaAtt = leitura.nextLine();
 														if(confirmaAtt.equals("sim")) {
 															while(confirmaAtt.equals("sim")) {
-																System.out.println("\n"+"Numero da casa da conta antiga: "+conta.getNumeroCasa());
+																System.out.println("\n"+"Numero da casa da conta antiga: "+conta.getEndereco().getNumeroCasa());
 																System.out.println("Digite o numero da casa novo: ");
 																novoNumeroCasatxt = leitura.nextLine();
 																novoNumeroCasa = Integer.valueOf(novoNumeroCasatxt);
-																if(novoNumeroCasa == conta.getNumeroCasa()) {
+																if(novoNumeroCasa == conta.getEndereco().getNumeroCasa()) {
 																	System.out.println("\n"+"O novo numero da casa é igual ao antigo! ");
 																	System.out.println("\n"+"Voce deseja digitar um novo numero da casa valido?");
 																	System.out.println("Observacao: Responda com 'sim' ou 'nao'!" + "\n");
 																	confirmaAtt = leitura.nextLine();
 																}else {
-																	conta.setNumeroCasa(novoNumeroCasa);
+																	ende.setNumeroCasa(novoNumeroCasa);
 																	break;
 																}
 															}if(!confirmaAtt.equals("sim")) {
 																System.out.println("\n" + "Atualização cancelada com sucesso!" + "\n");
 																break;
 															}else {
-																conta.setNumeroCasa(novoNumeroCasa);
+																ende.setNumeroCasa(novoNumeroCasa);
 																System.out.println("\n" + "\n" + "Conta atualizada com sucesso!" + "\n");
 																break;
 															}
@@ -400,46 +415,48 @@ public class mainGSC {
 															break;
 														}
 													}else {
-														conta.setNumeroCasa(novoNumeroCasa);
+														ende.setNumeroCasa(novoNumeroCasa);
 														System.out.println("\n" + "Conta atualizada com sucesso!" + "\n");
 														break;
 													}
 												}
+												conta.setEndereco(ende);
 											}
 										}
 										if(op3 == 5) {
 											//atualizar cep
 											for (Conta conta : dao.listar()) {
+												ende = conta.getEndereco();
 												if(numeroContaBusca == conta.getNumeroConta()) {
-													System.out.println("\n"+"Cep da conta antiga: "+conta.getCep());
+													System.out.println("\n"+"Cep da conta antiga: "+conta.getEndereco().getCep());
 													System.out.println("Digite o cep novo: ");
 													String novoCeptxt = leitura.nextLine();
 													int novoCep = Integer.valueOf(novoCeptxt);
-													if(novoCep == conta.getCep()) {
+													if(novoCep == conta.getEndereco().getCep()) {
 														System.out.println("\n"+"O novo cep é igual ao antigo! ");
 														System.out.println("\n"+"Voce deseja digitar um novo cep valido?");
 														System.out.println("Observacao: Responda com 'sim' ou 'nao'!" + "\n");
 														confirmaAtt = leitura.nextLine();
 														if(confirmaAtt.equals("sim")) {
 															while(confirmaAtt.equals("sim")) {
-																System.out.println("\n"+"Cep da conta antiga: "+conta.getCep());
+																System.out.println("\n"+"Cep da conta antiga: "+conta.getEndereco().getCep());
 																System.out.println("Digite o cep novo: ");
 																novoCeptxt = leitura.nextLine();
 																novoCep = Integer.valueOf(novoCeptxt);
-																if(novoCep == conta.getCep()) {
+																if(novoCep == conta.getEndereco().getCep()) {
 																	System.out.println("\n"+"O novo cep é igual ao antigo! ");
 																	System.out.println("\n"+"Voce deseja digitar um novo cep valido?");
 																	System.out.println("Observacao: Responda com 'sim' ou 'nao'!" + "\n");
 																	confirmaAtt = leitura.nextLine();
 																}else {
-																	conta.setCep(novoCep);
+																	ende.setCep(novoCep);
 																	break;
 																}
 															}if(!confirmaAtt.equals("sim")) {
 																System.out.println("\n" + "Atualização cancelada com sucesso!" + "\n");
 																break;
 															}else {
-																conta.setCep(novoCep);
+																ende.setCep(novoCep);
 																System.out.println("\n" + "\n" + "Conta atualizada com sucesso!" + "\n");
 																break;
 															}
@@ -448,11 +465,12 @@ public class mainGSC {
 															break;
 														}
 													}else {
-														conta.setCep(novoCep);
+														ende.setCep(novoCep);
 														System.out.println("\n" + "Conta atualizada com sucesso!" + "\n");
 														break;
 													}
 												}
+												conta.setEndereco(ende);
 											}
 										}
 										if(op3 == 6) {
@@ -544,11 +562,11 @@ public class mainGSC {
 								System.out.println("\n" + "Nome: "+conta.getNome());
 								System.out.println("Numero da conta: "+conta.getNumeroConta());
 								System.out.println("Numero de telefone: "+conta.getNumeroTelefone());
-								System.out.println("Bairro: "+conta.getBairro());
-								System.out.println("Rua: "+conta.getRua());
-								System.out.println("Complemento: "+conta.getComplemento());
-								System.out.println("Numero da casa: "+conta.getNumeroCasa());
-								System.out.println("Cep: "+conta.getCep());
+								System.out.println("Bairro: "+conta.getEndereco().getBairro());
+								System.out.println("Rua: "+conta.getEndereco().getRua());
+								System.out.println("Complemento: "+conta.getEndereco().getComplemento());
+								System.out.println("Numero da casa: "+conta.getEndereco().getNumeroCasa());
+								System.out.println("Cep: "+conta.getEndereco().getCep());
 								System.out.println("Valor do saldo: "+conta.getValorSaldo()+"\n");
 								icontrola++;
 								
@@ -580,11 +598,11 @@ public class mainGSC {
 							System.out.println("Nome: "+conta.getNome());
 							System.out.println("Numero da conta: "+conta.getNumeroConta());
 							System.out.println("Numero de telefone: "+conta.getNumeroTelefone());
-							System.out.println("Bairro: "+conta.getBairro());
-							System.out.println("Rua: "+conta.getRua());
-							System.out.println("Complemento: "+conta.getComplemento());
-							System.out.println("Numero da casa: "+conta.getNumeroCasa());
-							System.out.println("Cep: "+conta.getCep());
+							System.out.println("Bairro: "+conta.getEndereco().getBairro());
+							System.out.println("Rua: "+conta.getEndereco().getRua());
+							System.out.println("Complemento: "+conta.getEndereco().getComplemento());
+							System.out.println("Numero da casa: "+conta.getEndereco().getNumeroCasa());
+							System.out.println("Cep: "+conta.getEndereco().getCep());
 							System.out.println("Valor do saldo: "+conta.getValorSaldo()+"\n");
 						}
 					}
@@ -594,4 +612,4 @@ public class mainGSC {
 		}while(op!=5);
 			System.out.println(" =/=/=/=SISTEMA FINALIZADO=/=/=/=");
 		}
-	}
+}
