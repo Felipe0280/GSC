@@ -11,9 +11,8 @@ public class mainGSC {
 		Scanner leitura = new Scanner(System.in);
 		
 		int op=0, icontrola = 0;
-		boolean confirmacao = false;
 		String confirmaAtt, novoNome;
-		ContaDAO dao = new ContaDAO();
+		ContaDAO dao = ContaDAO.getInstancia();
 		
 		do {
 			System.out.println("\n" + " =/=/=/=MENU=/=/=/=" + "\n\n" + "1-Cadastrar uma conta;" + "\n" + "2-Pesquisar uma conta cadastrada;" + "\n" + "3-Excluir uma conta cadastrada;" + "\n" + "4-Listar contas cadastradas;" + "\n" + "5-Encerrar o programa." + "\n");

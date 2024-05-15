@@ -8,8 +8,16 @@ public class ContaDAO {
 	   
 	   private ArrayList<Conta> Cadastro ;
 	   private int geradorId;
+	   private static ContaDAO instancia;
 	   
-	   public ContaDAO() {
+	   public static ContaDAO getInstancia() {
+		   if (instancia == null) {
+			   instancia = new ContaDAO();
+		   }
+		   return instancia;
+	   }
+	   
+	  private ContaDAO() {
 		   this.Cadastro = new ArrayList<>();
 		   this.geradorId = 1;
 	   }
@@ -29,5 +37,7 @@ public class ContaDAO {
 		   
 		   return this.Cadastro;
 	   }
+
+	
 	   
 }
