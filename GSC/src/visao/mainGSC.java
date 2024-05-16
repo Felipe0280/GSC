@@ -1,6 +1,5 @@
 package visao;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import controle.ContaDAO;
@@ -44,7 +43,7 @@ public class mainGSC {
 					int numeroTelefone = Integer.valueOf(numeroTelefonetxt);
 					i.setNumeroTelefone(numeroTelefone);
 					
-					System.out.println("Digite seu endereco:");
+					System.out.println("Digite seu endereco"+"\n");
 					
 					System.out.println("Bairro:");
 					String bairro = leitura.nextLine();
@@ -90,8 +89,7 @@ public class mainGSC {
 					System.out.println("Digite o numero da conta que voce deseja pesquisar:");
 					String numeroContatxt = leitura.nextLine();
 					int numeroContaBusca = Integer.valueOf(numeroContatxt);
-					icontrola = 0;
-					if(numeroContaBusca > 0) {
+					dao.buscarPorId(numeroContaBusca);
 						for (Conta conta : dao.listar()) {
 							if(numeroContaBusca == conta.getNumeroConta()) {
 								
@@ -543,9 +541,7 @@ public class mainGSC {
 								}
 							}
 						}
-					}else {
-						System.out.println("\n"+"Numero pesquisado é invalido!");
-					}
+					
 					
 					
 					break;
@@ -574,7 +570,7 @@ public class mainGSC {
 								System.out.println("Observacao: Responda com 'sim' ou 'nao'!" + "\n");
 								String confirmaDel = leitura.nextLine();
 								if(confirmaDel.equals("sim")){
-									conta.setNumeroConta(-1);
+									dao.remover(conta);
 									System.out.println("\n"+"Conta excluida com sucesso!");
 								}else {
 									System.out.println("\n"+"Exclusao cancelada com sucesso!");
@@ -585,10 +581,7 @@ public class mainGSC {
 						if(icontrola == 0) {
 							System.out.println("\n" + "Numero da conta pesquisado nao encontrado!" + "\n");
 						}
-							
 						
-			
-					
 					break;
 					
 				case 4:

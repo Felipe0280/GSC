@@ -22,6 +22,20 @@ public class ContaDAO {
 		   this.geradorId = 1;
 	   }
 	 
+	  public Conta buscarPorId(int cod) {
+			for (Conta conta : Cadastro) {
+				if (conta.getNumeroConta() == cod) {
+					return conta;
+				}
+			}
+			return null;
+		}
+
+	  public Conta atualizar(Conta conta) {
+		  
+		  return null;
+	  }
+	  
 	   public int inserir(Conta conta) {
            
 		   if(conta!=null) {
@@ -33,10 +47,17 @@ public class ContaDAO {
     	   return conta.getNumeroConta();
        }
 	   
+	  
+	   
 	   public ArrayList<Conta>listar(){
 		   
 		   return this.Cadastro;
 	   }
+	   
+	   public boolean remover(Conta conta) {
+			boolean verifica = Cadastro.remove(conta);
+			return verifica;
+		}
  
 	
 	   
