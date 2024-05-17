@@ -32,7 +32,9 @@ public class ContaDAO {
 		}
 
 	  public Conta atualizar(Conta conta) {
-		  
+		  //fazer o methodo fazer uma verificação de opção digitada e no methodo so entra as novas
+		  //variavels entrar, ali como parametro entra a opção e as novas variaveis.Lembrar de fazer
+		  //uma verificação pra nao mexer em variavel se nao mexer nela!
 		  return null;
 	  }
 	  
